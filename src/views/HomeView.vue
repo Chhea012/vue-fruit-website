@@ -134,7 +134,7 @@ const products = [
     name: "Mango Fruit",
     price: 10,
     button: "Add to cost",
-    image: "/src/assets/img/8.png",
+    image: "/src/assets/img/pp.png",
   },
 ]
 </script>
