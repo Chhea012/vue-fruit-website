@@ -1,4 +1,46 @@
 <template>
+  <!-- Slideshow Section -->
+  <section class=" bg-gray-100">
+    <div class="w-full">
+      <div class="relative">
+        <!-- Slides -->
+        <div class="overflow-hidden">
+          <div class="flex transition-transform duration-500 ease-in-out" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
+            <div v-for="(slide, index) in slides" :key="index" class="flex-shrink-0 w-full">
+              <div class="relative">
+                <img :src="slide.image" :alt="slide.caption" class="w-full h-[500px] object-cover  shadow-lg" />
+                <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4">
+                  <h3 class="text-xl font-semibold">{{ slide.caption }}</h3>
+                  <p class="text-sm">{{ slide.description }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Navigation Arrows -->
+        <button @click="prevSlide" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-green-600 text-white p-2 rounded-full hover:bg-green-700">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button @click="nextSlide" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-green-600 text-white p-2 rounded-full hover:bg-green-700">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+        <!-- Dots -->
+        <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
+          <button
+            v-for="(slide, index) in slides"
+            :key="index"
+            @click="goToSlide(index)"
+            :class="['w-3 h-3 rounded-full', currentSlide === index ? 'bg-green-600' : 'bg-gray-300']"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Featured Products Section -->
   <section class="py-10 bg-gray-100">
     <div class="text-center mb-10">
       <h2 class="text-2xl md:text-3xl font-bold text-green-700">Featured Products</h2>
@@ -9,15 +51,15 @@
       <div
         v-for="product in products"
         :key="product.name"
-        class="bg-white shadow-lg border border-gray-200  overflow-hidden hover:shadow-2xl transition duration-300 flex flex-col"
+        class="bg-white shadow-lg border border-gray-200 overflow-hidden hover:shadow-2xl transition duration-300 flex flex-col"
       >
         <!-- Image section with inner padding and border -->
         <div class="p-2">
-          <div class="overflow-hidden h-72  border border-gray-300">
+          <div class="overflow-hidden h-72 border border-gray-300">
             <img
               :src="product.image"
               :alt="product.name"
-              class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300 "
+              class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300"
             />
           </div>
         </div>
@@ -37,6 +79,8 @@
       </div>
     </div>
   </section>
+
+  <!-- Banner Section -->
   <div class="bg-gray-200 py-10 px-4 text-center">
     <div class="max-w-5xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-10">
       <!-- Fruits Image -->
@@ -67,26 +111,26 @@
     </div>
   </div>
 
-
+  <!-- Our Partner Section -->
   <section class="bg-gray-50 py-12">
-  <div class="max-w-7xl mx-auto text-center px-6">
-    <h2 class="text-lg md:text-xl font-semibold text-green-700 mb-4 uppercase tracking-wide">Our Partner</h2>
+    <div class="max-w-7xl mx-auto text-center px-6">
+      <h2 class="text-lg md:text-xl font-semibold text-green-700 mb-4 uppercase tracking-wide">Our Partner</h2>
 
-    <div class="bg-white rounded-xl shadow-md p-6 md:p-8 flex flex-wrap justify-center gap-12">
-      <img src="/src/assets/collaboration/4.png" alt="E-GetS" class="w-32 h-32 rounded-full object-contain transition-transform duration-300 hover:scale-110 hover:shadow-lg" />
-      <img src="/src/assets/collaboration/2.png" alt="Grab" class="w-32 h-32 rounded-full object-contain transition-transform duration-300 hover:scale-110 hover:shadow-lg" />
-      <img src="/src/assets/collaboration/3.png" alt="FoodPanda" class="w-32 h-32 rounded-full object-contain transition-transform duration-300 hover:scale-110 hover:shadow-lg" />
-      <img src="/src/assets/collaboration/4.png" alt="TADA" class="w-32 h-32 rounded-full object-contain transition-transform duration-300 hover:scale-110 hover:shadow-lg" />
-      <img src="/src/assets/collaboration/5.png" alt="ABA Bank" class="w-32 h-32 rounded-full object-contain transition-transform duration-300 hover:scale-110 hover:shadow-lg" />
-      <img src="/src/assets/collaboration/image.png" alt="ACLEDA Bank" class="w-32 h-32 rounded-full object-contain transition-transform duration-300 hover:scale-110 hover:shadow-lg" />
+      <div class="bg-white rounded-xl shadow-md p-6 md:p-8 flex flex-wrap justify-center gap-12">
+        <img src="/src/assets/collaboration/4.png" alt="E-GetS" class="w-32 h-32 rounded-full object-contain transition-transform duration-300 hover:scale-110 hover:shadow-lg" />
+        <img src="/src/assets/collaboration/2.png" alt="Grab" class="w-32 h-32 rounded-full object-contain transition-transform duration-300 hover:scale-110 hover:shadow-lg" />
+        <img src="/src/assets/collaboration/3.png" alt="FoodPanda" class="w-32 h-32 rounded-full object-contain transition-transform duration-300 hover:scale-110 hover:shadow-lg" />
+        <img src="/src/assets/collaboration/4.png" alt="TADA" class="w-32 h-32 rounded-full object-contain transition-transform duration-300 hover:scale-110 hover:shadow-lg" />
+        <img src="/src/assets/collaboration/5.png" alt="ABA Bank" class="w-32 h-32 rounded-full object-contain transition-transform duration-300 hover:scale-110 hover:shadow-lg" />
+        <img src="/src/assets/collaboration/image.png" alt="ACLEDA Bank" class="w-32 h-32 rounded-full object-contain transition-transform duration-300 hover:scale-110 hover:shadow-lg" />
+      </div>
     </div>
-  </div>
-</section>
-
-
+  </section>
 </template>
 
 <script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+
 const products = [
   {
     name: "Cherry Tomatoes Fruit",
@@ -137,7 +181,46 @@ const products = [
     image: "/src/assets/img/pp.png",
   },
 ]
+
+const slides = ref([
+  {
+    image: '/src/assets/img/banner1.png',
+    caption: 'Fresh Tropical Fruits',
+    description: 'Explore our vibrant selection of tropical delights.'
+  },
+  {
+    image: '/src/assets/img/banner2.png',
+    caption: 'Organic Berries',
+    description: 'Hand-picked berries for a healthy lifestyle.'
+  },
+  {
+    image: '/src/assets/img/banner3.png',
+    caption: 'Seasonal Specials',
+    description: 'Discover the best of the season’s harvest.'
+  }
+])
+
+const currentSlide = ref(0)
+
+const nextSlide = () => {
+  currentSlide.value = (currentSlide.value + 1) % slides.value.length
+}
+
+const prevSlide = () => {
+  currentSlide.value = (currentSlide.value - 1 + slides.value.length) % slides.value.length
+}
+
+const goToSlide = (index) => {
+  currentSlide.value = index
+}
+
+// Auto-slide every 5 seconds
+let slideInterval = null
+onMounted(() => {
+  slideInterval = setInterval(nextSlide, 5000)
+})
+
+onUnmounted(() => {
+  clearInterval(slideInterval)
+})
 </script>
-
-
-  
